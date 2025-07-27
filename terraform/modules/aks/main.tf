@@ -12,7 +12,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   default_node_pool {
     name                = "systemnp"
     vm_size             = var.system_node_vm_size
-    auto_scaling_enabled = true
+    enable_auto_scaling = true
     min_count           = 1
     max_count           = 3
     orchestrator_version = var.kubernetes_version
@@ -50,7 +50,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   vm_size               = var.user_node_vm_size
   mode                  = "User"
 
-  auto_scaling_enabled  = true
+  enable_auto_scaling = true
   min_count             = 1
   max_count             = 5
 

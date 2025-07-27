@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'api'
-      - 'aks-manifests'
       - '.github/workflows/ci-cd.yml'
 
   workflow_dispatch:

@@ -23,7 +23,7 @@ module "vnet" {
 module "acr" {
   source              = "./modules/acr"
   acr_name            = var.acr_name
-  location            = module.resource_group.name
+  location            = module.resource_group.location
   resource_group_name = module.resource_group.name
   sku                 = var.sku
   admin_enabled       = var.admin_enabled

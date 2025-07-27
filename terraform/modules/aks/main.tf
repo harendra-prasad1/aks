@@ -45,30 +45,30 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 }
 
 # User Node Pool - Spot Instances for Cost Optimization
-resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
-  name                  = "usernp"
-  kubernetes_cluster_id = azurerm_kubernetes_cluster.aks_cluster.id
-  vm_size               = var.user_node_vm_size
-  mode                  = "User"
+# resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
+#   name                  = "usernp"
+#   kubernetes_cluster_id = azurerm_kubernetes_cluster.aks_cluster.id
+#   vm_size               = var.user_node_vm_size
+#   mode                  = "User"
 
-  enable_auto_scaling = true
-  min_count             = 1
-  max_count             = 5
+#   enable_auto_scaling = true
+#   min_count             = 1
+#   max_count             = 5
 
-  node_labels           = { "nodepool-type" = "user" }
+#   node_labels           = { "nodepool-type" = "user" }
 
-  spot_max_price        = -1 # Use -1 for on-demand price cap
-  priority              = "Spot"
-  eviction_policy       = "Delete"
+#   spot_max_price        = -1 # Use -1 for on-demand price cap
+#   priority              = "Spot"
+#   eviction_policy       = "Delete"
 
-  #zones                 = ["1", "2", "3"]
+#   #zones                 = ["1", "2", "3"]
 
-  orchestrator_version  = var.kubernetes_version
+#   orchestrator_version  = var.kubernetes_version
 
-  tags = {
-    env = terraform.workspace
-  }
-}
+#   tags = {
+#     env = terraform.workspace
+#   }
+# }
 
 resource "azurerm_role_assignment" "acr_pull" {
   principal_id         = azurerm_kubernetes_cluster.aks_cluster.kubelet_identity[0].object_id

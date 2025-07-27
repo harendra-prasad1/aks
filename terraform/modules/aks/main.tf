@@ -40,7 +40,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   workload_identity_enabled = true
 
   tags = {
-    environment = "production"
+    env = terraform.workspace
   }
 }
 
@@ -66,6 +66,6 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   orchestrator_version  = var.kubernetes_version
 
   tags = {
-    environment = "production"
+    env = terraform.workspace
   }
 }

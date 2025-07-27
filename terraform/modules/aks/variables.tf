@@ -37,5 +37,5 @@ variable "system_node_vm_size" {
 variable "user_node_vm_size" {
   description = "VM size for the user node pool (spot instances)."
   type        = string
-  default     = "Standard_B2s"
+  default     = "SStandard_B2ms"
 }

@@ -10,6 +10,20 @@ variable "location" {
   description = "Azure region"
 }
 
+variable "acr_name" {
+  type = string
+}
+
+variable "admin_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "sku" {
+  type        = string
+  default     = "Standard"
+}
+
 variable "cluster_name" {
   description = "The name of the AKS cluster."
   type        = string
@@ -36,5 +50,5 @@ variable "system_node_vm_size" {
 variable "user_node_vm_size" {
   description = "VM size for the user node pool (spot instances)."
   type        = string
-  default     = "Standard_B2s"
+  default     = "Standard_B2ms"
 }

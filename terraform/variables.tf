@@ -30,11 +30,11 @@ variable "kubernetes_version" {
 variable "system_node_vm_size" {
   description = "VM size for the system node pool."
   type        = string
-  default     = "Standard_DS2_v2"
+  default     = "Standard_B2s"
 }
 
 variable "user_node_vm_size" {
   description = "VM size for the user node pool (spot instances)."
   type        = string
-  default     = "Standard_DS2_v2"
+  default     = "Standard_B2s"
 }

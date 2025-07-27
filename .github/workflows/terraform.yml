@@ -45,9 +45,9 @@ jobs:
     - name: Terraform Init
       run: terraform init
 
-    - name: Select/Create Workspace
-      run: |
-        terraform workspace select $TF_WORKSPACE || terraform workspace new $TF_WORKSPACE
+    # - name: Select/Create Workspace
+    #   run: |
+    #     terraform workspace select $TF_WORKSPACE || terraform workspace new $TF_WORKSPACE
 
     - name: Terraform Plan
       run: terraform plan -var-file="workspace-vars/${TF_WORKSPACE}.tfvars"

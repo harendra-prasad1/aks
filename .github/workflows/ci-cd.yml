@@ -8,6 +8,8 @@ on:
       - 'api'
       - '.github/workflows/ci-cd.yml'
 
+  workflow_dispatch:
+
 env:
   IMAGE_NAME: myapp
 

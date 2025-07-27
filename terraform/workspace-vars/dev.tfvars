@@ -1,4 +1,5 @@
 name_prefix = "harry"
 location = "Central India"
 cluster_name = "aks001"
-acr_name = "acr001"
+acr_name = "acr00"
+sku = "basic"

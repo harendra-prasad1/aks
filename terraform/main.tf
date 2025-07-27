@@ -38,4 +38,5 @@ module "aks" {
   kubernetes_version     = data.azurerm_kubernetes_service_versions.current.latest_version
   system_node_vm_size    = var.system_node_vm_size
   user_node_vm_size      = var.user_node_vm_size
+  acr_id                 = module.acr.acr_id
 }

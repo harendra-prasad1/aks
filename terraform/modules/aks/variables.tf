@@ -39,3 +39,8 @@ variable "user_node_vm_size" {
   type        = string
   default     = "SStandard_B2ms"
 }
+
+variable "acr_id" {
+  description = "container id for granting access"
+  type = string  
+}

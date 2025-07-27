@@ -52,7 +52,7 @@ jobs:
         resource-group: ${{ secrets.RESOURCE_GROUP }}
         cluster-name: ${{ secrets.AKS_CLUSTER }}
 
-    - name: Replace tag in deployment.yaml and Deploy
+    - name: Replace tag in deployment.yml and Deploy
       run: |
-        sed "s|__IMAGE__|${{ secrets.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}|g" aks-manifests/deployment.yaml | kubectl apply -f -
+        sed "s|__IMAGE__|${{ secrets.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}|g" aks-manifests/deployment.yml | kubectl apply -f -
 

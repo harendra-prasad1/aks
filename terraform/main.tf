@@ -1,3 +1,11 @@
+data "azurerm_kubernetes_service_versions" "current" {
+  location = var.location
+}
+
+output "latest_version" {
+  value = data.azurerm_kubernetes_service_versions.current.latest_version
+}
+
 module "resource_group" {
   source      = "./modules/resource-groups"
   name_prefix = var.name_prefix
@@ -19,7 +27,7 @@ module "aks" {
   resource_group_name    = module.resource_group.name
   cluster_name           = var.cluster_name
   sku_tier               = var.sku_tier
-  kubernetes_version     = var.kubernetes_version
+  kubernetes_version     = data.azurerm_kubernetes_service_versions.current.latest_version
   system_node_vm_size    = var.system_node_vm_size
   user_node_vm_size      = var.user_node_vm_size
 }

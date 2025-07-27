@@ -1,11 +1,3 @@
-data "azurerm_kubernetes_service_versions" "current" {
-  location = var.location
-}
-
-output "latest_version" {
-  value = data.azurerm_kubernetes_service_versions.current.latest_version
-}
-
 # AKS Cluster
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = var.cluster_name
@@ -13,7 +5,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   resource_group_name = var.resource_group_name
   dns_prefix          = "aks-${var.cluster_name}"
 
-  kubernetes_version            = data.azurerm_kubernetes_service_versions.current.latest_version
+  kubernetes_version            = var.kubernetes_version
   sku_tier                      = var.sku_tier
   private_cluster_enabled       = false
 
@@ -23,7 +15,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     enable_auto_scaling = true
     min_count           = 1
     max_count           = 3
-    orchestrator_version = var.data.azurerm_kubernetes_service_versions.current.latest_version
+    orchestrator_version = var.kubernetes_version
     node_labels         = { "nodepool-type" = "system" }
     #zones               = ["1", "2", "3"] # High availability
   }
@@ -71,7 +63,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
 
   #zones                 = ["1", "2", "3"]
 
-  orchestrator_version  = var.data.azurerm_kubernetes_service_versions.current.latest_version
+  orchestrator_version  = var.kubernetes_version
 
   tags = {
     environment = "production"

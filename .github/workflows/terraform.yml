@@ -1,0 +1,57 @@
+name: Terraform AKS Deployment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'terraform/**'
+      - 'terraform.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'terraform/**'
+      - 'terraform.yml'
+  
+  workflow_dispatch:
+
+env:
+  TF_WORKSPACE: dev
+  TF_VAR_location: "East US"
+  TF_VAR_name_prefix: "dev"
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{secrets.AZURE_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+    defaults:
+      run:
+        working-directory: ./terraform
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Select/Create Workspace
+      run: |
+        terraform workspace select $TF_WORKSPACE || terraform workspace new $TF_WORKSPACE
+
+    - name: Terraform Plan
+      run: terraform plan -var-file="workspace-vars/${TF_WORKSPACE}.tfvars"
+
+    - name: Terraform Apply
+      if: github.ref == 'refs/heads/main'
+      run: terraform apply -auto-approve -var-file="workspace-vars/${TF_WORKSPACE}.tfvars"

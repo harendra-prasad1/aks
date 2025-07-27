@@ -17,7 +17,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     max_count           = 3
     orchestrator_version = var.kubernetes_version
     node_labels         = { "nodepool-type" = "system" }
-    zones               = ["1", "2", "3"] # High availability
+    #zones               = ["1", "2", "3"] # High availability
   }
 
   identity {
@@ -61,7 +61,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "user_node_pool" {
   priority              = "Spot"
   eviction_policy       = "Delete"
 
-  zones                 = ["1", "2", "3"]
+  #zones                 = ["1", "2", "3"]
 
   orchestrator_version  = var.kubernetes_version
 

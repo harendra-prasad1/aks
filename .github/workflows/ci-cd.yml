@@ -52,6 +52,12 @@ jobs:
         resource-group: ${{ secrets.RESOURCE_GROUP }}
         cluster-name: ${{ secrets.AKS_CLUSTER }}
 
+    - name: Install kubelogin
+      run: |
+        curl -LO https://github.com/Azure/kubelogin/releases/latest/download/kubelogin-linux-amd64.zip
+        unzip kubelogin-linux-amd64.zip
+        sudo mv kubelogin /usr/local/bin
+
     - name: Replace tag in deployment.yml and Deploy
       run: |
         sed "s|__IMAGE__|${{ secrets.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}|g" aks-manifests/deployment.yml | kubectl apply -f -
